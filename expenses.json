@@ -1,0 +1,7 @@
+[ {
+  "id" : 1,
+  "title" : "Burger",
+  "amount" : 650.0,
+  "category" : "Fast Food",
+  "date" : [ 2026, 8, 5 ]
+} ]
