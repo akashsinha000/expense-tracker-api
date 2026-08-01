@@ -31,7 +31,7 @@ The application allows users to create, retrieve, update, search, summarize, and
 # Technologies Used
 
 - Java 17
-- Spring Boot 3.5.5
+- Spring Boot 4.1.0
 - Maven
 - Jackson
 - Jakarta Validation
