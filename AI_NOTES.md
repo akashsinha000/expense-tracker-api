@@ -10,7 +10,9 @@ Instead of directly copying generated code, I integrated the suggestions into my
 
 ---
 
-# How AI Helped
+# 1. Which parts of the code were AI-generated vs. written by you?
+
+## How AI Helped
 
 AI mainly helped me by:
 
@@ -23,15 +25,11 @@ AI mainly helped me by:
 - Helping create JUnit test cases.
 - Helping improve project documentation.
 
----
-
-# Improvements Implemented by Me
+## Improvements Implemented by Me
 
 After implementing the basic CRUD operations, I made several improvements to make the application closer to a real-world REST API.
 
----
-
-## 1. Implemented PATCH Endpoint
+### 1. Implemented PATCH Endpoint
 
 Initially, the implementation only supported updating an expense using the PUT method.
 
@@ -80,13 +78,11 @@ Result
 
 Everything is replaced.
 
----
-
 ### PATCH
 
 PATCH updates only the fields sent in the request.
 
-Example
+Example:
 
 Current Expense
 
@@ -126,7 +122,7 @@ I implemented PATCH because it follows REST best practices and avoids sending un
 
 ---
 
-## 2. Get Expense by ID
+### 2. Get Expense by ID
 
 I added an endpoint to retrieve a single expense using its unique ID.
 
@@ -138,7 +134,7 @@ This returns the complete information of the requested expense.
 
 ---
 
-## 3. Improved Validation Response
+### 3. Improved Validation Response
 
 Initially, validation returned only the first validation error.
 
@@ -188,7 +184,7 @@ This reduces unnecessary API calls and provides a better experience for the clie
 
 ---
 
-## 4. Global Exception Handling
+### 4. Global Exception Handling
 
 I implemented centralized exception handling using `@RestControllerAdvice`.
 
@@ -202,7 +198,7 @@ and returns consistent JSON responses.
 
 ---
 
-## 5. Swagger Documentation
+### 5. Swagger Documentation
 
 I integrated Swagger (OpenAPI) into the project.
 
@@ -220,7 +216,7 @@ http://localhost:8080/v3/api-docs
 
 ---
 
-## 6. Docker Support
+### 6. Docker Support
 
 I containerized the application using Docker.
 
@@ -233,7 +229,7 @@ This included:
 
 ---
 
-## 7. Additional Features
+### 7. Additional Features
 
 Apart from the basic CRUD operations, I also implemented:
 
@@ -247,7 +243,9 @@ Apart from the basic CRUD operations, I also implemented:
 
 ---
 
-# Suggestions I Modified
+# 2. What did you validate, tested, or changed in the AI's output, and why?
+
+## Suggestions I Modified
 
 I did not use every AI suggestion exactly as generated.
 
@@ -258,11 +256,15 @@ Before adding any code into the project, I:
 - Fixed compilation and runtime issues.
 - Refactored repeated code where necessary.
 - Improved validation handling.
-- Verified every endpoint manually.
+- Verified every endpoint manually using Postman, Swagger, and Docker.
+- Verified JSON persistence after create, update, PUT, PATCH, and delete operations.
+- Ran JUnit test cases before finalizing the implementation.
 
 ---
 
-# Suggestions I Chose Not to Use
+# 3. Any AI suggestion you decided not to use, and why?
+
+## Suggestions I Chose Not to Use
 
 Some suggestions were intentionally not implemented because they were outside the scope of this assignment.
 
@@ -310,13 +312,13 @@ I did not add a separate logging framework because Spring Boot's built-in loggin
 
 ---
 
-# Testing and Verification
+## Testing and Verification
 
 After implementing every feature, I verified the application by:
 
 - Testing every REST endpoint using Postman.
 - Testing endpoints using Swagger UI.
-- Verifying JSON file persistence after create, update, and delete operations.
+- Verifying JSON file persistence after create, update, delete, PUT, and PATCH operations.
 - Testing validation using invalid request bodies.
 - Testing exception handling.
 - Running JUnit test cases.
@@ -324,7 +326,7 @@ After implementing every feature, I verified the application by:
 
 ---
 
-# Summary
+## Summary
 
 AI was used as a development assistant to review ideas, discuss implementation approaches, troubleshoot issues, and improve the overall quality of the project.
 
