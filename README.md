@@ -1,10 +1,12 @@
 # Smart Expense Tracker API
 
-A RESTful API built using **Spring Boot** for managing personal expenses. The application allows users to create, retrieve, update, search, summarize, and delete expenses. Expense data is stored in a local JSON file (`expenses.json`), so no external database is required.
+A RESTful API built using **Spring Boot** for managing personal expenses.
+
+The application allows users to create, retrieve, update, search, summarize, and delete expenses. Expense data is stored in a local **`expenses.json`** file, providing lightweight file-based persistence without requiring an external database.
 
 ---
 
-## Features
+# Features
 
 - Add a new expense
 - View all expenses
@@ -14,18 +16,19 @@ A RESTful API built using **Spring Boot** for managing personal expenses. The ap
 - Calculate total expenses
 - Calculate total expenses by category
 - View monthly expense summary
-- Replace an expense using PUT
-- Partially update an expense using PATCH
+- Replace an expense using **PUT**
+- Partially update an expense using **PATCH**
 - Delete an expense
 - Input validation
 - Global exception handling
+- JSON file persistence using `expenses.json`
 - Swagger/OpenAPI documentation
 - Docker support
 - JUnit test cases
 
 ---
 
-## Technologies Used
+# Technologies Used
 
 - Java 17
 - Spring Boot 3.5.5
@@ -38,9 +41,19 @@ A RESTful API built using **Spring Boot** for managing personal expenses. The ap
 
 ---
 
-## Project Structure
+# Data Storage
 
-```
+This application stores expense records in a local **`expenses.json`** file instead of using a database.
+
+- The file is created automatically when the first expense is added.
+- Every **POST**, **PUT**, **PATCH**, and **DELETE** request updates `expenses.json`.
+- No external database configuration is required.
+
+---
+
+# Project Structure
+
+```text
 expense-tracker-api
 │
 ├── src
@@ -62,7 +75,7 @@ expense-tracker-api
 │           └── com.expensetracker.expensetrackerapi
 │               └── ExpenseControllerTest.java
 │
-├── expenses.json
+├── expenses.json          # Stores all expense records
 ├── Dockerfile
 ├── pom.xml
 ├── README.md
@@ -79,7 +92,7 @@ expense-tracker-api
 git clone https://github.com/akashsinha000/expense-tracker-api.git
 ```
 
-Move into the project directory
+Move into the project directory:
 
 ```bash
 cd expense-tracker-api
@@ -153,17 +166,19 @@ mvn clean install
 
 # Swagger Documentation
 
-Swagger UI
+### Swagger UI
 
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
 
-OpenAPI Specification
+### OpenAPI Specification
 
 ```
 http://localhost:8080/v3/api-docs
 ```
+
+Swagger automatically generates API documentation and allows all endpoints to be tested directly from the browser.
 
 ---
 
@@ -184,13 +199,13 @@ docker images
 ### Run Container
 
 ```bash
-docker run -p 8080:8080 expense-tracker
+docker run --name expense-tracker-container -p 8080:8080 expense-tracker
 ```
 
-If port 8080 is already in use
+If port **8080** is already in use:
 
 ```bash
-docker run -p 8081:8080 expense-tracker
+docker run --name expense-tracker-container -p 8081:8080 expense-tracker
 ```
 
 ### View Running Containers
@@ -222,6 +237,8 @@ docker rm <container_id>
 ```bash
 docker rmi expense-tracker
 ```
+
+The application was verified by building the Docker image and successfully running the API inside a Docker container.
 
 ---
 
@@ -262,14 +279,14 @@ git pull
 # API Endpoints
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
+|---------|----------|-------------|
 | POST | `/expenses` | Add a new expense |
 | GET | `/expenses` | Get all expenses |
 | GET | `/expenses/{id}` | Get expense by ID |
-| GET | `/expenses?category=Food` | Filter by category |
+| GET | `/expenses?category=Food` | Filter expenses by category |
 | GET | `/expenses/search?keyword=food` | Search by title or category |
 | GET | `/expenses/total` | Get total expenses |
-| GET | `/expenses/total?category=Food` | Get total by category |
+| GET | `/expenses/total?category=Food` | Get total expenses by category |
 | GET | `/expenses/monthly-summary?year=2026&month=8` | Monthly expense summary |
 | PUT | `/expenses/{id}` | Replace an expense |
 | PATCH | `/expenses/{id}` | Partially update an expense |
@@ -281,14 +298,14 @@ git pull
 
 ### Add Expense
 
-**POST** `/expenses`
+**POST /expenses**
 
 ```json
 {
-    "title": "Groceries",
-    "amount": 850,
-    "category": "Food",
-    "date": "2026-08-02"
+  "title": "Groceries",
+  "amount": 850,
+  "category": "Food",
+  "date": "2026-08-02"
 }
 ```
 
@@ -298,11 +315,11 @@ git pull
 
 ```json
 {
-    "id": 1,
-    "title": "Groceries",
-    "amount": 850,
-    "category": "Food",
-    "date": "2026-08-02"
+  "id": 1,
+  "title": "Groceries",
+  "amount": 850,
+  "category": "Food",
+  "date": "2026-08-02"
 }
 ```
 
@@ -312,26 +329,26 @@ git pull
 
 The application validates user input before processing requests.
 
-Validation rules:
+### Validation Rules
 
 - Title cannot be empty
 - Amount must be greater than 0
 - Category cannot be empty
 - Date is required
 
-Example validation response
+### Example Validation Response
 
 ```json
 {
-    "timestamp": "2026-08-02T01:20:00",
-    "status": 400,
-    "error": "Bad Request",
-    "errors": {
-        "title": "Title is required",
-        "amount": "Amount must be greater than 0",
-        "category": "Category is required",
-        "date": "Date is required"
-    }
+  "timestamp": "2026-08-02T01:20:00",
+  "status": 400,
+  "error": "Bad Request",
+  "errors": {
+    "title": "Title is required",
+    "amount": "Amount must be greater than 0",
+    "category": "Category is required",
+    "date": "Date is required"
+  }
 }
 ```
 
@@ -346,18 +363,6 @@ Handled exceptions include:
 - 400 Bad Request
 - 404 Not Found
 - 500 Internal Server Error
-
----
-
-# Data Storage
-
-Expense data is stored locally in:
-
-```
-expenses.json
-```
-
-No external database is required to run the application.
 
 ---
 
@@ -388,3 +393,9 @@ The project includes JUnit integration tests for:
 **Akash Sinha**
 
 GitHub: https://github.com/akashsinha000
+
+---
+
+# License
+
+This project is intended for educational and assignment purposes.
